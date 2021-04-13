@@ -2,6 +2,8 @@ import React from "react";
 import Home from "./components/Home";
 import { Router } from "@reach/router";
 import SinglePost from "./components/SinglePost";
+import Login from "./components/Login";
+import Dashboard from "./components/Dashboard";
 
 class App extends React.Component {
     render() {
@@ -10,6 +12,8 @@ class App extends React.Component {
                 <Router>
                     <Home path="/" />
                     <SinglePost path="/post/:id" />
+                    <Login path="/login" />
+                    <Dashboard path="/dashboard/:userName" />
                 </Router>
             </div>
         );
