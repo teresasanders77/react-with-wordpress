@@ -1,5 +1,8 @@
 import React from "react";
 import DashboardLayout from "../../layouts/DashboardLayout";
+import Loader from "../../../loader.gif";
+import clientConfig from "../../../client-config";
+import axios from "axios";
 
 class CreatePost extends React.Component {
     constructor(props) {
@@ -8,31 +11,70 @@ class CreatePost extends React.Component {
         this.state = {
             title: "",
             content: "",
-            token: "",
             postCreated: false,
             loading: false,
             message: ""
         };
     }
 
-    handleFormSubmit() {}
+    createMarkup = (data) => ({
+        __html: data
+    });
 
-    handleInputChange() {}
+    handleFormSubmit = (event) => {
+        event.preventDefault();
 
-    componentDidMount() {
-        const token = localStorage.getItem("token");
-        this.setState({ token });
-    }
+        this.setState({ loading: true });
+
+        const formData = {
+            title: this.state.title,
+            content: this.state.content,
+            status: "publish"
+        };
+
+        const wordPressSiteUrl = clientConfig.siteUrl;
+        const authToken = localStorage.getItem("token");
+
+        //Post request to create a post
+        axios
+            .post(`${wordPressSiteUrl}/wp-json/wp/v2/posts`, formData, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${authToken}`
+                }
+            })
+            .then((res) => {
+                this.setState({
+                    loading: false,
+                    postCreated: !!res.data.id,
+                    message: res.data.id ? "New post created" : ""
+                });
+            })
+            .catch((err) => {
+                console.warn("err", err.response.data);
+                {
+                    this.setState({ loading: false, message: err.response.data.message });
+                }
+            });
+    };
+
+    handleInputChange = (event) => {
+        this.setState({ [event.target.name]: event.target.value });
+    };
 
     render() {
         const { loading, message, postCreated } = this.state;
+        console.warn("state", this.state);
         return (
             <DashboardLayout>
                 <form onSubmit={this.handleFormSubmit} className="mt-5" style={{ maxWidth: "800px" }}>
                     <legend className="mb-4">Create Post</legend>
 
                     {message ? (
-                        <div className={`alert ${postCreate ? "alert-success" : "alert-danger"}`}>{message}</div>
+                        <div
+                            className={`alert ${postCreated ? "alert-success" : "alert-danger"}`}
+                            dangerouslySetInnerHTML={this.createMarkup(message)}
+                        />
                     ) : (
                         ""
                     )}
@@ -62,6 +104,7 @@ class CreatePost extends React.Component {
                     <button type="submit" className="btn btn-secondary">
                         Submit
                     </button>
+                    {loading && <img className="loader" src={Loader} alt="Loader" />}
                 </form>
             </DashboardLayout>
         );
