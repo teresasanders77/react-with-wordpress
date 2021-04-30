@@ -69,33 +69,36 @@ class Login extends React.Component {
             return (
                 <div>
                     <Navbar />
-                    <form onSubmit={this.onFormSubmit} style={{ margin: "20px" }}>
-                        <label className="form-group">
-                            Username:
-                            <input
-                                type="text"
-                                className="form-control"
-                                name="username"
-                                value={username}
-                                onChange={this.handleOnChange}
-                            />
-                        </label>
-                        <br />
-                        <label className="form-group">
-                            Password:
-                            <input
-                                type="password"
-                                className="form-control"
-                                name="password"
-                                value={password}
-                                onChange={this.handleOnChange}
-                            />
-                        </label>
-                        <br />
-                        <button className="btn btn-primary mb-3" type="submit">
-                            Login
-                        </button>
-                    </form>
+                    <div style={{ height: "100vh", maxWidth: "400px", margin: "0 auto" }}>
+                        <h4 className="mb-4">Login</h4>
+                        <form onSubmit={this.onFormSubmit}>
+                            <label className="form-group">
+                                Username:
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    name="username"
+                                    value={username}
+                                    onChange={this.handleOnChange}
+                                />
+                            </label>
+                            <br />
+                            <label className="form-group">
+                                Password:
+                                <input
+                                    type="password"
+                                    className="form-control"
+                                    name="password"
+                                    value={password}
+                                    onChange={this.handleOnChange}
+                                />
+                            </label>
+                            <br />
+                            <button className="btn btn-primary mb-3" type="submit">
+                                Login
+                            </button>
+                        </form>
+                    </div>
                 </div>
             );
         }

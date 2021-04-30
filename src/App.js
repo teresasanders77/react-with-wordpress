@@ -5,11 +5,12 @@ import SinglePost from "./components/SinglePost";
 import Login from "./components/Login";
 import Dashboard from "./components/dashboard/Dashboard";
 import CreatePost from "./components/dashboard/posts/CreatePost";
+import AppProvider from "./components/context/AppProvider";
 
 class App extends React.Component {
     render() {
         return (
-            <div>
+            <AppProvider>
                 <Router>
                     <Home path="/" />
                     <Login path="/login" />
@@ -17,7 +18,7 @@ class App extends React.Component {
                     <CreatePost path="/dashboard/create-post" />
                     <SinglePost path="/post/:id" />
                 </Router>
-            </div>
+            </AppProvider>
         );
     }
 }

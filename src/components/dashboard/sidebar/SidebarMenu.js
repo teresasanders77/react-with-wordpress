@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { getUserName } from "../../functions";
 import NavLink from "../../NavLink";
+import AppContext from "../../context/AppContext";
 
 const SidebarMenu = (props) => {
+    const [store, setStore] = useContext(AppContext);
+
     const [subMenuActive, setSubMenuActive] = useState(false);
     const userName = getUserName() ? getUserName() : "";
 

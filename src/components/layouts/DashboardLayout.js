@@ -7,7 +7,7 @@ class DashboardLayout extends React.Component {
         super(props);
 
         this.state = {
-            active: false
+            active: true
         };
     }
 
