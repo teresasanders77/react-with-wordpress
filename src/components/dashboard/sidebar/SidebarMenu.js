@@ -1,40 +1,19 @@
-import React, { useState, useContext } from "react";
-import { getUserName } from "../../functions";
+import React, { useContext } from "react";
 import NavLink from "../../NavLink";
 import AppContext from "../../context/AppContext";
+import PostMenu from "./menus/PostMenu";
 
 const SidebarMenu = (props) => {
     const [store, setStore] = useContext(AppContext);
 
-    const [subMenuActive, setSubMenuActive] = useState(false);
-    const userName = getUserName() ? getUserName() : "";
-
     return (
         <nav>
             <div className="sidebar-header">
-                <NavLink to={`/dashboard/${userName}`}>React with WP</NavLink>
+                <NavLink to={`/dashboard `}>React with WP</NavLink>
             </div>
-            <div id="sidebar" className={props.active ? "active" : ""}>
+            <div id="sidebar" className={store.sidebarActive ? "active" : ""}>
                 <ul className="list-unstyled components">
-                    <li className="active">
-                        <NavLink
-                            to="#"
-                            data-toggle="collapse"
-                            aria-expanded={subMenuActive}
-                            className={`dropdown-toggle ${!subMenuActive ? "collapsed" : ""}`}
-                            onClick={() => setSubMenuActive(!subMenuActive)}
-                        >
-                            Posts
-                        </NavLink>
-                        <ul className={`collapse list-unstyled ${subMenuActive ? "show" : ""}`} id="homeSubMenu">
-                            <li>
-                                <a href="#">All Posts</a>
-                            </li>
-                            <li>
-                                <NavLink to="/dashboard/create-post">Add New</NavLink>
-                            </li>
-                        </ul>
-                    </li>
+                    <PostMenu />
                     <li>
                         <a href="#">Pages</a>
                     </li>
