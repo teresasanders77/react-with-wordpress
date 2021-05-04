@@ -4,7 +4,7 @@ import { getUserName } from "../functions";
 
 const Dashboard = (props) => {
     const userName = getUserName() ? getUserName() : "";
-    console.log("username:" + userName);
+
     return <DashboardLayout>{userName ? <h2>Welcome {userName}!!</h2> : ""}</DashboardLayout>;
 };
 

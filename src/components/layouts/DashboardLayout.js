@@ -2,11 +2,11 @@ import React from "react";
 import Content from "../content/Content";
 import SidebarMenu from "../dashboard/sidebar/SidebarMenu";
 
-const DashboardLayout = () => {
+const DashboardLayout = (props) => {
     return (
         <React.Fragment>
             <SidebarMenu />
-            <Content>{this.props.children}</Content>
+            <Content>{props.children}</Content>
         </React.Fragment>
     );
 };

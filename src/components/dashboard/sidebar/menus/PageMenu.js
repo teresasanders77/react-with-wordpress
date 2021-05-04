@@ -1,23 +1,32 @@
-import React from "react";
+import React, { useContext } from "react";
+import NavLink from "../../../NavLink";
+import AppContext from "../../../context/AppContext";
 
 const PageMenu = () => {
+    const [store, setStore] = useContext(AppContext);
+
     return (
-        <li className="active">
+        <li className={"/dashboard/pages" === window.location.pathname ? "active" : ""}>
             <NavLink
-                to="#"
+                to="/dashboard/pages"
                 data-toggle="collapse"
-                aria-expanded={subMenuActive}
-                className={`dropdown-toggle ${!subMenuActive ? "collapsed" : ""}`}
-                onClick={() => setSubMenuActive(!subMenuActive)}
+                aria-expanded={store.activeMenu.pageMenuActive}
+                className={`dropdown-toggle ${!store.activeMenu.pageMenuActive ? "collapsed" : ""}`}
+                onClick={() =>
+                    setStore({
+                        ...store,
+                        activeMenu: { pageMenuActive: !store.activeMenu.pageMenuActive }
+                    })
+                }
             >
                 Pages
             </NavLink>
-            <ul className={`collapse list-unstyled ${subMenuActive ? "show" : ""}`} id="homeSubMenu">
+            <ul className={`collapse list-unstyled ${store.activeMenu.pageMenuActive ? "show" : ""}`} id="homeSubmenu">
                 <li>
                     <a href="#">All Pages</a>
                 </li>
                 <li>
-                    <NavLink to="/dashboard/create-post">Add New</NavLink>
+                    <NavLink to="/dashboard/create-page">Add New</NavLink>
                 </li>
             </ul>
         </li>

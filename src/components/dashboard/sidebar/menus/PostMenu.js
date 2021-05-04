@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import NavLink from "../../../NavLink";
 import AppContext from "../../../context/AppContext";
 
 const PostMenu = () => {
     const [store, setStore] = useContext(AppContext);
+    console.warn("store", store);
 
     return (
         <li className={"/dashboard/posts" === window.location.pathname ? "active" : ""}>
@@ -10,7 +12,7 @@ const PostMenu = () => {
                 to="/dashboard/posts"
                 data-toggle="collapse"
                 aria-expanded={store.activeMenu.postMenuActive}
-                className={`dropdown-toggle ${!subMenuActive ? "collapsed" : ""}`}
+                className={`dropdown-toggle ${!store.activeMenu.postMenuActive ? "collapsed" : ""}`}
                 onClick={() =>
                     setStore({
                         ...store,
@@ -20,9 +22,9 @@ const PostMenu = () => {
             >
                 Posts
             </NavLink>
-            <ul className={`collapse list-unstyled ${subMenuActive ? "show" : ""}`} id="homeSubMenu">
+            <ul className={`collapse list-unstyled ${store.activeMenu.postMenuActive ? "show" : ""}`} id="homeSubmenu">
                 <li>
-                    <a href="#">All Posts</a>
+                    <NavLink to="/dashboard/posts">All Posts</NavLink>
                 </li>
                 <li>
                     <NavLink to="/dashboard/create-post">Add New</NavLink>

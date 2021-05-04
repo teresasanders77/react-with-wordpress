@@ -14,6 +14,7 @@ const AppProvider = (props) => {
         const userName = localStorage.getItem("userName");
 
         setStore({ ...store, token, userName });
+        console.warn("store", store);
     }, []);
 
     return <AppContext.Provider value={[store, setStore]}>{props.children}</AppContext.Provider>;
